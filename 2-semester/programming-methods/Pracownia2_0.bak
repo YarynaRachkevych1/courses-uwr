@@ -1,0 +1,194 @@
+#lang racket
+(require data/heap)
+(provide sim? wire?
+         (contract-out
+          [make-sim        (-> sim?)]
+          [sim-wait!       (-> sim? positive? void?)]
+          [sim-time        (-> sim? real?)]
+          [sim-add-action! (-> sim? positive? (-> any/c) void?)]
+
+          [make-wire       (-> sim? wire?)]
+          [wire-on-change! (-> wire? (-> any/c) void?)]
+          [wire-value      (-> wire? boolean?)]
+          [wire-set!       (-> wire? boolean? void?)]
+
+          [bus-value (-> (listof wire?) natural?)]
+          [bus-set!  (-> (listof wire?) natural? void?)]
+
+          [gate-not  (-> wire? wire? void?)]
+          [gate-and  (-> wire? wire? wire? void?)]
+          [gate-nand (-> wire? wire? wire? void?)]
+          [gate-or   (-> wire? wire? wire? void?)]
+          [gate-nor  (-> wire? wire? wire? void?)]
+          [gate-xor  (-> wire? wire? wire? void?)]
+
+          [wire-not  (-> wire? wire?)]
+          [wire-and  (-> wire? wire? wire?)]
+          [wire-nand (-> wire? wire? wire?)]
+          [wire-or   (-> wire? wire? wire?)]
+          [wire-nor  (-> wire? wire? wire?)]
+          [wire-xor  (-> wire? wire? wire?)]
+
+          [flip-flop (-> wire? wire? wire? void?)]))
+
+(define (bus-set! wires value)
+  (match wires
+    ['() (void)]
+    [(cons w wires)
+     (begin
+       (wire-set! w (= (modulo value 2) 1))
+       (bus-set! wires (quotient value 2)))]))
+
+(define (bus-value ws)
+  (foldr (lambda (w value) (+ (if (wire-value w) 1 0) (* 2 value)))
+         0
+         ws))
+
+(define (flip-flop out clk data)
+  (define sim (wire-sim data))
+  (define w1  (make-wire sim))
+  (define w2  (make-wire sim))
+  (define w3  (wire-nand (wire-and w1 clk) w2))
+  (gate-nand w1 clk (wire-nand w2 w1))
+  (gate-nand w2 w3 data)
+  (gate-nand out w1 (wire-nand out w3)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;Simulation stuckture and functions
+
+(struct sim ([time #:mutable] [queue #:mutable]) #:transparent)
+
+(define (make-sim)
+  (sim 0 (make-heap (lambda (pair1 pair2) (< (car pair1) (car pair2))))))
+
+(define my-sim (make-sim))
+
+;function that checks if heap is emty)
+(define (heap-empty? heap)
+  (zero? (heap-count heap)))
+
+;(heap-empty? (sim-queue my-sim))
+
+(define (sim-wait! sim time)
+  (set-sim-time! sim (+ (sim-time sim) time))
+  (let loop ()
+    (when (not (heap-empty? (sim-queue sim)))
+      (let ((action-record (heap-min (sim-queue sim))))
+        (cond
+          ((and action-record (<= (car action-record) (sim-time sim)))
+           ((cdr action-record))
+           (heap-remove-min! (sim-queue sim))
+           (loop))
+          (else #t))))))
+
+(define (sim-add-action! sim time action)
+  (heap-add! (sim-queue sim) (cons time action)))
+
+;(sim-wait! my-sim 20)
+;(sim-time my-sim)
+;(sim-queue my-sim)
+
+
+;Wire stucktures and functions
+
+(struct wire ([value #:mutable] [actions #:mutable] [sim #:mutable]) #:transparent)
+
+(define (make-wire sim)
+  (wire #f '() sim))
+
+
+;; Funkcja dodająca akcję do przewodu
+(define (wire-on-change! w action)
+  (set-wire-actions! w (cons action (wire-actions w))))
+
+;; Funkcja ustawiająca wartość przewodu i wykonująca akcje do niego podpięte
+(define (wire-set! w new-value)
+  (let ((old-value (wire-value w)))
+    (when (not (equal? old-value new-value))
+      (set-wire-value! w new-value)
+      (for-each (lambda (action) (action)) (wire-actions w)))))
+
+
+(define (gate-not in out)
+  (wire-on-change! in (lambda () (wire-set! out (not (wire-value in)))))
+  (wire-set! out (not (wire-value in))))
+
+(define (gate-and in1 in2 out)
+  (wire-on-change! in1 (lambda () (wire-set! out (and (wire-value in1) (wire-value in2)))))
+  (wire-on-change! in2 (lambda () (wire-set! out (and (wire-value in1) (wire-value in2)))))
+  (wire-set! out (and (wire-value in1) (wire-value in2))))
+
+(define (gate-nand out a b)
+  (define sim (wire-sim a))
+  (define (nand-update)
+    (let ((new-value (not (and (wire-value a) (wire-value b)))))
+      (sim-add-action! sim 1 (lambda () (wire-set! out new-value)))))
+  (wire-on-change! a nand-update)
+  (wire-on-change! b nand-update)
+  (nand-update))
+
+(define (gate-or out a b)
+  (define sim (wire-sim a))
+  (define (or-update)
+    (let ((new-value (or (wire-value a) (wire-value b))))
+      (sim-add-action! sim 1 (lambda () (wire-set! out new-value)))))
+  (wire-on-change! a or-update)
+  (wire-on-change! b or-update)
+  (or-update))
+
+(define (gate-nor out a b)
+  (define sim (wire-sim a))
+  (define (nor-update)
+    (let ((new-value (not (or (wire-value a) (wire-value b)))))
+      (sim-add-action! sim 1 (lambda () (wire-set! out new-value)))))
+  (wire-on-change! a nor-update)
+  (wire-on-change! b nor-update)
+  (nor-update))
+
+(define (gate-xor out a b)
+  (define sim (wire-sim a))
+  (define (xor-update)
+    (let ((new-value (xor (wire-value a) (wire-value b))))
+      (sim-add-action! sim 2 (lambda () (wire-set! out new-value)))))
+  (wire-on-change! a xor-update)
+  (wire-on-change! b xor-update)
+  (xor-update))
+
+;; Funkcja tworzącą nowy przewód i tworząca do niego bramkę not
+(define (wire-not in)
+  (define new-wire (make-wire (wire-sim in)))
+  (gate-not new-wire in)
+  new-wire)
+
+;; Funkcja tworzącą nowy przewód i tworząca do niego bramkę and
+(define (wire-and in1 in2)
+  (define new-wire (make-wire (wire-sim in1)))
+  (gate-and new-wire in1 in2)
+  new-wire)
+
+;; Funkcja tworzącą nowy przewód i tworząca do niego bramkę or
+(define (wire-or in1 in2)
+  (define new-wire (make-wire (wire-sim in1)))
+  (gate-or new-wire in1 in2)
+  new-wire)
+
+;; Funkcja tworzącą nowy przewód i tworząca do niego bramkę nor
+(define (wire-nor in1 in2)
+  (define new-wire (make-wire (wire-sim in1)))
+  (gate-nor new-wire in1 in2)
+  new-wire)
+
+;; Funkcja tworzącą nowy przewód i tworząca do niego bramkę nand
+(define (wire-nand in1 in2)
+  (define new-wire (make-wire (wire-sim in1)))
+  (gate-nand new-wire in1 in2)
+  new-wire)
+
+;; Funkcja tworzącą nowy przewód i tworząca do niego bramkę xor
+(define (wire-xor in1 in2)
+  (define new-wire (make-wire (wire-sim in1)))
+  (gate-xor new-wire in1 in2)
+  new-wire)
+

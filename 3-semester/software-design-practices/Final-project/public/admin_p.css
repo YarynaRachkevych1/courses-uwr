@@ -1,0 +1,138 @@
+body {
+    background-color:#1f2626;
+}
+#container {
+    background-color: #1a2320;
+	width: 1536px;
+    height: 729px;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+}
+.three {
+    float: left;
+    margin-left: 74px;
+}
+
+#logo {
+    margin-top: 5px;
+    color: white;
+    font-size: 30px;
+}
+
+#home_logo {
+    width: 250px;
+    margin-top: 10px;
+    margin-left: 20px;
+    height: auto;
+    color: #2cf9c3;
+    font-size: 30px;
+    text-align: left;
+    border-radius: 5px;
+}
+
+#home_panel {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 220px;
+    border-radius: 5px;
+}
+
+.side_menu{
+    position: fixed;
+    float: left;
+    background-color: #18425092;
+    border-radius: 5px; 
+}
+.row{
+    color: white;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.centerO {
+    margin: auto;
+    width: 25%;
+    border: 3px solid #1a2320;
+    padding: 10px;
+}
+.title {
+    color: white;
+    font-size: 20px;
+}
+.center {
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+}
+.admin_center {
+    margin: auto;
+    width: 60%;
+    height: 220px;
+    border: 3px solid #cae1df;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #d6e1e07c;
+}
+.order-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px; /* Adjust the margin-top value as needed */
+}
+.a_button {
+    margin-top: 5px;
+    width: 200px;
+    background-color: #337d76;
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid transparent;
+    border-color: #32dac9;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+.a_button:hover {
+    background-color: #16534d;
+}
+
+.p_button {
+    background-color: #337d76;
+    border-radius: 5px;
+    font-size: 16px;
+    position: absolute; /* Positioning absolute */
+    top: 100px; /* Adjust top positioning */
+    left: 10px; /* Adjust left positioning */
+}
+
+#admin_home{
+    margin-left: 307px;
+    width: 60%;
+    background-color: #18425092;
+    border: 2px solid #69cdc5;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#products {
+    margin-left: 310px;
+    width: 1195px;
+    height: 690px;
+    background-color: #cae1df46;
+    border-radius: 5px;
+}
+
+.product_box {
+    background-color: #208585;    
+    /* width: 200px;
+    height: 300px; */
+}
+
+.product{
+    height: auto;
+    width: 200px;
+    padding-top: 5px;
+    padding-left: 10px;
+    color: white;
+    text-align: left;
+}

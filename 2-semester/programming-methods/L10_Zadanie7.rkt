@@ -1,0 +1,36 @@
+#lang plait
+
+(define-syntax my-and
+  (syntax-rules ()
+    [(my-and) #t]
+    [(my-and [a : Boolean]) a]
+    [(my-and a b ...) (if a (my-and b ...) a)] ))
+
+(my-and #t #t #f #t)
+
+(define-syntax my-or
+  (syntax-rules ()
+    [(my-or) #t]
+    [(my-or [a : Boolean]) a]
+    [(my-or a b ...) (if a a (my-or b ...))]))
+
+(my-or #f #t #f)
+
+(define-syntax my-let
+  (syntax-rules ()
+    [(my-let () a) a]
+    [(my-let ([x1 a1] [x2 a2] ...) body)
+     ((lambda (x1 x2 ...) body) a1 a2 ...)]))
+
+(my-let ([x 10]
+         [y (* 2 4)])
+  (+ x y))
+ 
+(define-syntax my-let*
+  (syntax-rules ()
+    [(my-let* () a) a]
+    [(my-let* ([x1 a1] [x2 a2] ...) body)
+     ((lambda (x1) (let* ([x2 a2] ...) body)) a1)]))
+
+
+(my-let* ([a 10] [b (+ a 10)]) (+ a b))

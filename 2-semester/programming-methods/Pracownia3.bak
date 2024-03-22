@@ -1,0 +1,45 @@
+#lang plait
+
+(define-type-alias Value Number)
+
+(define (run [s : S-Exp]) : Value
+  (error 'run "not implemented"))
+
+;; abstract syntax -------------------------------
+
+(define-type Op
+  (add) (sub) (mul) (leq))
+
+(define-type Exp
+  (numE [n : Number])
+  (opE [op : Op] [l : Exp] [r : Exp])
+  (ifE [b : Exp] [l : Exp] [r : Exp])
+  (varE [x : Symbol])
+  (letE [x : Symbol] [e1 : Exp] [e2 : Exp])
+  (funE [s : (Listof Symbol)] [e : Exp])
+  (definE [s : (Listof (Symbol * Exp))] [e : Exp]))
+
+;; parse ----------------------------------------
+
+(define (parse [s : S-Exp]) : Exp
+  (cond
+    [(s-exp-match? `{define NUMBER} s)
+     (numE (s-exp->number s))]
+    [(s-exp-match? `{if ANY ANY ANY} s)
+     (ifE (parse (second (s-exp->list s)))
+          (parse (third (s-exp->list s)))
+          (parse (fourth (s-exp->list s))))]
+    [(s-exp-match? `SYMBOL s)
+     (varE (s-exp->symbol s))]
+    [(s-exp-match? `{let SYMBOL ANY ANY} s)
+     (letE (s-exp->symbol (second (s-exp->list s)))
+           (parse (third (s-exp->list s)))
+           (parse (fourth (s-exp->list s))))]
+    [else (error 'parse "invalid input")]))
+
+(define prim-ops '(+ - * <=))
+
+(define (parse-op [op : Symbol]) : Symbol
+  (if (member op prim-ops)
+      op 
+      (error 'parse "unknown operator")))

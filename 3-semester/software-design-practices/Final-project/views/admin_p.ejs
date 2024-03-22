@@ -1,0 +1,48 @@
+<%- include('index') %>
+<body>
+    <div id="container">
+        <div style="height: 15px;"></div>
+        <div id="logo">
+            Welcome to Admin Panel
+        </div>
+        <div style="height: 30px;"></div>
+        <div class="admin_center">
+            <div class="three">
+                <div class="title"> Users </div>
+                <form method="get" action="/admin/all_users">
+                    <button class="a_button" type="submit">See all users list</button>
+                </form>
+            </div>
+            
+            <div class="three">
+                <div class="title"> Products </div>
+                <form method="get" action="/admin/add_pr">
+                    <button class="a_button" type="submit">Add product</button>
+                </form>
+                <form method="get" action="/admin/modify_pr">
+                    <button class="a_button" type="submit">Modify product</button>
+                </form>
+                <form method="get" action="/admin/delete_pr">
+                    <button class="a_button" type="submit">Delete product</button>
+                </form>
+            </div>
+
+            <div class="three">
+                <div class="title"> Orders </div>
+                <form method="get" action="/admin/process_o">
+                    <button class="a_button" type="submit">Orders in process</button>
+                </form>
+                <form method="get" action="/admin/finished_o">
+                    <button class="a_button" type="submit">Finished orders</button>
+                </form>
+            </div>
+        </div>
+        <div id="admin_home">
+            <form method="get" action="/home">
+                <button class="a_button" type="submit">Return to home page</button>
+            </form>
+        </div>
+    </div>
+    <script src="/routes/admin/admin_p.js"></script>
+</body>
+</html>

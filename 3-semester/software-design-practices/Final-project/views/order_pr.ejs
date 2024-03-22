@@ -1,0 +1,37 @@
+<%- include('index') %>
+<body style="background-color:#1f2626;">
+    <div id="container">
+        <div style="height: 15px;"></div>
+        <div id="logo">
+            My orders
+        </div>
+        <div class="centerO">
+            <form method="get" action="/my_acc/orders">
+                <button style="width: 200px;" class="a_button" type="submit">Return to all orders</button>
+            </form> 
+        </div>
+        <div class="container products">
+            <div class="row mx-3">
+                <% if (products.length > 0) { %>
+                    <% products.forEach(product => { %>
+                        <div class="col-xl-3">
+                            <div class="card text-center px-3 py-5" style="height: 300px;">
+                                <h3 class="card-title"><%= product.name %></h3>
+                                <div class="card-body">
+                                    <p>Price: $<%= product.price %></p>
+                                    <p>Author: <%= product.description %></p>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                  <% } else { %>
+                    <p class="product">No products available.</p>
+                  <% } %>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <script src="/routes/admin/admin_p.js"></script>
+</body>
+</html>

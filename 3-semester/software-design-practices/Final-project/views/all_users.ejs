@@ -1,0 +1,25 @@
+<%- include('index') %>
+<body>
+    <div id="container">
+        <div style="height: 15px;"></div>
+        <div id="logo">
+            List of all users
+        </div>
+        <div class="centerO">
+            <form method="get" action="/admin">
+                <button style="width: 200px;" class="a_button" type="submit">Return to Admin Panel</button>
+            </form> 
+            <ul>
+                <% if (allUsers && allUsers.length > 0) { %>
+                  <% allUsers.forEach(user => { %>
+                    <li class="title"><%= user.email %></li>
+                  <% }); %>
+                <% } else { %>
+                  <li class="title">No users available</li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <script src="/routes/admin/admin_p.js"></script>
+</body>
+</html>

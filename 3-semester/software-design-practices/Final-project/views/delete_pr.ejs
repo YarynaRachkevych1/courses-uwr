@@ -1,0 +1,24 @@
+<%- include('index') %>
+<body>
+    <div id="container">
+        <div style="height: 15px;"></div>
+        <div id="logo">
+            Delete a Product
+        </div>
+        <div style="height: 50px;"></div>
+        <div class="centerO">
+            <div class="row">
+                <form method="post" action="/admin/delete_pr">
+                    <label for="task">Book id to delete:</label>
+                    <input style="width: 185px;" type="string" name="pr_id"/>
+                    <div style="height: 10px;"></div>
+                    <button class="a_button" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <script src="/routes/admin/admin_p.js"></script>
+</body>
+</html>

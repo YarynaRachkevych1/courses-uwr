@@ -1,0 +1,76 @@
+#lang racket
+;Definition of tree structure
+(define-struct leaf () #:transparent)
+(define-struct node (l elem r) #:transparent)
+
+(define (tree? x)
+  (cond [(leaf? x) #t]
+        [(node? x) (and (tree? (node-l x))
+                        (tree? (node-r x)))]
+        [else #f]))
+
+;Example tree to test
+(define my-tree
+  (node
+   (node (leaf) 2 (leaf))
+   5
+   (node (node (leaf) 6 (leaf))
+         8
+         (node (leaf) 9 (leaf)))))
+
+
+
+;Fold-tree function
+(define (fold-tree f base tree)
+  (cond [(leaf? tree) base]
+        [(node? tree) (f (node-elem tree)
+                         (fold-tree f base (node-l tree))
+                         (fold-tree f base (node-r tree)))]
+        [else (error "Wrong type of node!")]))
+
+
+;Sum of all nodes
+(define (tree-sum0 t)
+  (cond [(leaf? t) 0]
+        [(node? t) (+ (node-elem t) (tree-sum0 (node-l t)) (tree-sum0 (node-r t)))]))
+
+(define (tree-sum tree)
+  (fold-tree + 0 tree))
+
+(tree-sum my-tree)
+
+
+;Flipping a tree
+(define (tree-flip tree)
+  (fold-tree (lambda (elem l r)
+               (node r elem l)) ;return a new node
+             (leaf)
+             tree))
+
+;Height of a tree
+(define (tree-height tree)
+  (fold-tree (lambda (elem l r)
+               (+ 1 (max l r))) ; max of left and right subtrees + 1
+             0
+             tree))
+
+(tree-height my-tree)
+
+;The smalles and the largest node value in tree
+(define (tree-span t)
+  (fold-tree (lambda (e l r)
+               (cons (if (leaf? (car l)) e (car l))
+                     (if (leaf? (cdr r)) e (cdr r))))
+             (cons (leaf) (leaf)) t))
+
+(tree-span my-tree)
+
+;List of all elements in a tree
+(define (flatten0 t)
+  (fold-tree list null t))
+
+(define (flatten t)
+  (fold-tree (lambda (e l r)
+               (append l (cons e r))) '() t))
+
+(flatten my-tree)

@@ -1,0 +1,6 @@
+# ninja log v5
+555	646	7085238996075293	Zadanie4.exe	5fb3e8ed9ae6454b
+2	477	7085183986675218	CMakeFiles/Zadanie4.dir/Triangle.cpp.obj	db5c7fd87aa1b100
+3	562	7085183610151733	CMakeFiles/Zadanie4.dir/main.cpp.obj	ce957d8a74bee0be
+2	554	7085238995181982	CMakeFiles/Zadanie4.dir/main4.cpp.obj	a78afb25cd273122
+1	157	7085239001230130	build.ninja	f5d22a55be9ac7cd

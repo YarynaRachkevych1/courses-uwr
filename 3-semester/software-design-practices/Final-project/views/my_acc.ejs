@@ -1,0 +1,29 @@
+<%- include('index') %>
+<body>
+    <div id="container">
+        <div style="height: 15px;"></div>
+        <div id="logo">
+            My Account
+        </div>
+        <div id="home_panel" style="margin-left: 645px;">
+            <form method="get" action="/my_acc/orders">
+                <div class="row">
+                    <button class="a_button" type="submit">My Orders</button>
+                </div>
+            </form>
+            <form method="get" action="/my_acc/cart">
+                <div class="row">
+                    <button class="a_button" type="submit">My Cart</button>
+                </div>
+            </form>
+            <form method="get" action="/home_aut">
+                <div class="row">
+                    <button class="a_button" type="submit">Return to home page</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/routes/admin/admin_p.js"></script>
+</body>
+</html>

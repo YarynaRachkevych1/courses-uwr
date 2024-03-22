@@ -1,0 +1,3 @@
+C:/Users/raryn/CLionProjects/Zadanie12/Zadanie1/cmake-build-debug/CMakeFiles/Zadanie1.dir
+C:/Users/raryn/CLionProjects/Zadanie12/Zadanie1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/raryn/CLionProjects/Zadanie12/Zadanie1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

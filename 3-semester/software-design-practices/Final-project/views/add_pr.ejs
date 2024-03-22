@@ -1,0 +1,29 @@
+<%- include('index') %>
+<body>
+    <div id="container">
+        <div style="height: 15px;"></div>
+        <div id="logo">
+            Add a Product
+        </div>
+        <div style="height: 50px;"></div>
+        <div class="centerO">
+            <form method="post" action="/admin/add_pr"> <!-- Dodaj atrybut action z odpowiednią ścieżką -->
+                <div class="row">
+                    <label for="pr_name">Book name:</label>
+                    <input type="text" name="pr_name"/>
+                </div>
+                <div class="row">
+                    <label for="pr_price">Book price:</label>
+                    <input style="width: 167px;" type="text" name="pr_price"/>
+                </div>
+                <div class="row">
+                    <label for="multiLineInput">Book author:</label>
+                    <div style="height: 5px;"></div>
+                    <textarea style="width: 287px;" name="pr_description" rows="4" cols="50"></textarea>
+                </div>
+                <button class="a_button" type="submit">Submit</button>
+            </form> 
+        </div>
+    </div>
+</body>
+</html>

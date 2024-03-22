@@ -1,0 +1,37 @@
+<%- include('index') %>
+<body>
+    <div id="container">
+        <div style="height: 15px;"></div>
+        <div id="logo">
+            Modify a Product
+        </div>
+        <div style="height: 50px;"></div>
+        <div class="centerO">
+            <form method="post" action="/admin/modify_pr">
+                <div class="row">
+                    <label for="task">Book Id:</label>
+                    <input style="width: 230px;" type="string" name="pr_id"/>
+                </div>
+                <div class="row">
+                    <label for="task">New book name:</label>
+                    <input type="string" name="pr_name"/>
+                </div>
+                <div class="row">
+                    <label for="task">New book price:</label>
+                    <input style="width: 166px;" type="real" name="pr_price"/>
+                </div>
+                <div class="row">
+                    <label for="task">Book author(s):</label>
+                    <div style="height: 5px;"></div>
+                    <textarea style="width: 326px;" name="pr_description" rows="4" cols="50"></textarea>
+                    <div style="height: 8px;"></div>   
+                </div>
+                <button class="a_button" type="submit">Submit</button>
+            </form> 
+        </div>
+    </div>
+
+    </div>
+    <!-- <script src="/routes/admin/admin_p.js"></script> -->
+</body>
+</html>

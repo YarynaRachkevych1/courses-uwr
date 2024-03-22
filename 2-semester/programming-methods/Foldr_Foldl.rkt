@@ -1,0 +1,34 @@
+#lang racket
+
+(define (my-foldr f x xs)
+  (if (null? xs)
+      x
+      (f (car xs) (my-foldr f x (cdr xs)))))
+
+
+(define (my-foldl f x xs)
+  (define (it xs acc)
+    (if (null? xs)
+        acc
+        (it (cdr xs) (f (car xs) acc))))
+  (it xs x))
+
+
+( (lambda (y)
+  (let ((x 3))
+    (let ((y x))
+      (+ x y x)))) 5)
+
+(lambda (y)
+  (let ((x 3))
+      (+ x y x)))
+
+(let ((y 4))
+  (let ((x 3))
+    (lambda (y x)
+      (+ x y x))))
+
+(define (func x)
+  (lambda (y)
+  (let ((x 3))
+      (+ x y x))))

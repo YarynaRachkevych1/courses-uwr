@@ -1,0 +1,25 @@
+# ninja log v5
+7	341	7042870716251779	CMakeFiles/Zadanie7_2_0.dir/TicTacToe.cpp.obj	1390eda29c1d2baa
+1	643	7042870719270382	CMakeFiles/Zadanie7_2_0.dir/main.cpp.obj	5285511fbad5f3e4
+644	740	7042870720170334	Zadanie7_2_0.exe	16d018a1dc2b8bc4
+10	393	7042876847774555	CMakeFiles/Zadanie7_2_0.dir/TicTacToe.cpp.obj	1390eda29c1d2baa
+5	718	7042876851007725	CMakeFiles/Zadanie7_2_0.dir/main.cpp.obj	5285511fbad5f3e4
+718	969	7042876853461643	Zadanie7_2_0.exe	16d018a1dc2b8bc4
+2	684	7042877929171863	CMakeFiles/Zadanie7_2_0.dir/main.cpp.obj	5285511fbad5f3e4
+685	875	7042877930531468	Zadanie7_2_0.exe	16d018a1dc2b8bc4
+10	372	7042881587149134	CMakeFiles/Zadanie7_2_0.dir/TicTacToe.cpp.obj	1390eda29c1d2baa
+4	865	7042881592068689	CMakeFiles/Zadanie7_2_0.dir/main.cpp.obj	5285511fbad5f3e4
+865	980	7042881593171244	Zadanie7_2_0.exe	16d018a1dc2b8bc4
+3	605	7042884069578349	CMakeFiles/Zadanie7_2_0.dir/main.cpp.obj	5285511fbad5f3e4
+605	749	7042884070947348	Zadanie7_2_0.exe	16d018a1dc2b8bc4
+10	455	7042887362197556	CMakeFiles/Zadanie7_2_0.dir/TicTacToe.cpp.obj	1390eda29c1d2baa
+4	901	7042887366648291	CMakeFiles/Zadanie7_2_0.dir/main.cpp.obj	5285511fbad5f3e4
+901	1080	7042887368182999	Zadanie7_2_0.exe	16d018a1dc2b8bc4
+3	921	7042887845379830	CMakeFiles/Zadanie7_2_0.dir/main.cpp.obj	5285511fbad5f3e4
+922	1038	7042887846940666	Zadanie7_2_0.exe	16d018a1dc2b8bc4
+3	589	7042888378605832	CMakeFiles/Zadanie7_2_0.dir/main.cpp.obj	5285511fbad5f3e4
+590	692	7042888380047152	Zadanie7_2_0.exe	16d018a1dc2b8bc4
+3	592	7042889439083303	CMakeFiles/Zadanie7_2_0.dir/main.cpp.obj	5285511fbad5f3e4
+593	722	7042889440279178	Zadanie7_2_0.exe	16d018a1dc2b8bc4
+4	267	7042962467574079	CMakeFiles/Zadanie7_2_0.dir/TicTacToe.cpp.obj	1390eda29c1d2baa
+268	392	7042962468738639	Zadanie7_2_0.exe	16d018a1dc2b8bc4

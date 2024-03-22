@@ -1,0 +1,37 @@
+<%- include('index') %>
+<body>
+    <div id="container">
+        <div style="height: 15px;"></div>
+        <div id="logo">
+            Register
+        </div>
+        <div style="height: 50px;"></div>
+        <div class="center">
+
+            <div class="three">
+                <form method="post" action="/register">
+                    <div class="row">
+                        <label>Enter your e-mail:</label>
+                        <input type="text" name="e_mail"/>
+                    </div>
+                    <div class="row">
+                        <label>Enter your password:</label>
+                        <input type="password" name="password"/>
+                    </div>
+                    <div class="row">
+                        <label>Confirm your password:</label>
+                        <input type="password" name="password2"/>
+                    </div>
+                    <div class="row">
+                        <button class="a_button" type="submit">Register</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script src="/routes/admin/admin_p.js"></script>
+</body>
+</html>
